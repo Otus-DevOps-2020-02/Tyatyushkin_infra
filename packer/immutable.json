@@ -8,18 +8,19 @@
         {
             "type": "googlecompute",
             "project_id": "{{user `ID`}}",
-            "image_name": "reddit-base-{{timestamp}}",
-            "image_family": "reddit-base",
+            "image_name": "reddit-full-{{timestamp}}",
+            "image_family": "reddit-full",
             "source_image_family": "{{user `SIF`}}",
             "zone": "europe-west1-b",
             "ssh_username": "masterplan",
             "machine_type": "{{user `MT`}}",
-            "region": "europe-west1",
             "image_description": "reddit-base server",
             "disk_type": "pd-standard",
             "disk_size": "10",
             "network": "default",
-            "tags": "puma-server"
+            "tags": [
+                "puma-server"
+            ]
         }
     ],
     "provisioners": [
@@ -32,6 +33,21 @@
             "type": "shell",
             "script": "scripts/install_mongodb.sh",
             "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "file",
+            "source": "files/puma.service",
+            "destination": "/home/masterplan/puma.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo cp /home/masterplan/puma.service /etc/systemd/system/puma.service",
+                "cd /home/masterplan",
+                "git clone -b monolith https://github.com/express42/reddit.git",
+                "cd reddit && bundle install",
+                "sudo systemctl daemon-reload && sudo systemctl start puma && sudo systemctl enable puma"
+            ]
         }
     ]
 }
