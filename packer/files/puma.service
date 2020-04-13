@@ -1,0 +1,11 @@
+[Unit]
+Description=puma
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/masterplan/reddit
+ExecStart=/usr/local/bin/puma
+
+[Install]
+WantedBy=multi-user.target
