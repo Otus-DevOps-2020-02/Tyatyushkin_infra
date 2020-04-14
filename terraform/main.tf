@@ -1,6 +1,6 @@
 terraform {
   # Версия terraform
-  required_version = "0.12.8"
+  required_version = "0.12.24"
 }
 
 provider "google" {
@@ -44,7 +44,7 @@ resource "google_compute_instance" "app" {
     host        = self.network_interface[0].access_config[0].nat_ip
     user        = "masterplan"
     agent       = false
-    private_key = "${file(var.private_key_path)}"
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {
