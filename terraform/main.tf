@@ -12,6 +12,10 @@ provider "google" {
 
   region = var.region
 }
+resource "google_compute_project_metadata_item" "default" {
+    key = "ssh-keys"
+    value = "appuser:${file(var.public_key_path)}appuser1:${file(var.public_key_path)}"
+}
 
 resource "google_compute_instance" "app" {
   name         = "reddit-app"
@@ -31,7 +35,7 @@ resource "google_compute_instance" "app" {
 
   metadata = {
     # путь до публичного ключа
-    ssh-keys = "masterplan:${file(var.public_key_path)}"
+    ssh-keys = "masterplan:${file(var.public_key_path)}}"
   }
 
   connection {
