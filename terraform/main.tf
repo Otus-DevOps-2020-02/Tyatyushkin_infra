@@ -18,7 +18,8 @@ resource "google_compute_project_metadata_item" "default" {
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  count        = var.insta_count
+  name         = "reddit-app-${count.index}"
   machine_type = "g1-small"
   zone         = var.zone
   tags         = ["reddit-app"]
@@ -54,9 +55,6 @@ resource "google_compute_instance" "app" {
   provisioner "remote-exec" {
     script = "files/deploy.sh"
   }
-
-
-
 }
 
 resource "google_compute_firewall" "firewall_puma" {

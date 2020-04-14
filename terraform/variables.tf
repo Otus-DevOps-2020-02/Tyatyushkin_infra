@@ -22,3 +22,8 @@ variable zone {
   description = "Zone"
   default     = "europe-west1-b"
 }
+
+variable insta_count {
+  description = "count of instances"
+  default = 1
+}
