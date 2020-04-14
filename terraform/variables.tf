@@ -25,5 +25,5 @@ variable zone {
 
 variable insta_count {
   description = "count of instances"
-  default = 1
+  default     = 1
 }

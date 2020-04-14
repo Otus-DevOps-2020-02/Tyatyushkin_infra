@@ -4,7 +4,7 @@ resource "google_compute_instance_group" "lb" {
   name        = "lbgroup"
   description = "load balancer group"
   zone        = var.zone
-  instances = google_compute_instance.app[*].self_link
+  instances   = google_compute_instance.app[*].self_link
   named_port {
     name = "puma"
     port = "9292"
@@ -45,8 +45,8 @@ resource "google_compute_backend_service" "web-backend-service" {
 }
 
 resource "google_compute_url_map" "web-map-http" {
- name        = "web-map-http"
- default_service = google_compute_backend_service.web-backend-service.self_link
+  name            = "web-map-http"
+  default_service = google_compute_backend_service.web-backend-service.self_link
 }
 
 resource "google_compute_target_http_proxy" "http-lb-proxy" {
@@ -55,8 +55,8 @@ resource "google_compute_target_http_proxy" "http-lb-proxy" {
 }
 
 resource "google_compute_global_forwarding_rule" "http-content-rule" {
-  name = "http-content-rule"
+  name       = "http-content-rule"
   ip_address = google_compute_global_address.lb-ipv4.self_link
-  target = google_compute_target_http_proxy.http-lb-proxy.self_link
+  target     = google_compute_target_http_proxy.http-lb-proxy.self_link
   port_range = "80"
 }
