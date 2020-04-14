@@ -20,10 +20,10 @@ variable private_key_path {
 
 variable zone {
   description = "Zone"
-  default     = "europe-west1-b"
+  default = "europe-west1-b"
 }
 
 variable insta_count {
   description = "count of instances"
-  default     = 1
+  default = 1
 }
