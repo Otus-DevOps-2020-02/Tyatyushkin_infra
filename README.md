@@ -1,6 +1,53 @@
 # Tyatyushkin_infra
 Tyatyushkin Infra repository
 
+Тема: Практика IAC с использованием Terraform
+
+Выволненные работы:
+1) Создаем новую ветку и скачиваем terraform из репозитория
+2) Создаем каталог Terraform, а так же пустой файл main.tf и вносим исключения в .gitignore
+3) Иницилизируем каталог с терраформом командой terraform init
+4) Заполняем конфигурационный файл main.tf
+5) Планируем измнением terraform plan и вносим terraform apply
+6) Добавляем ssh ключ
+7) Настраиваем файл вывода outputs.tf
+8) Создаем правило фаервола для доступа к приложению
+9) Добавляем provisioners для сборки образа и вносим применяем измненеия
+10) Создаем файл с переменными variables.tf и пересоздаем проект для проверки.
+
+Задания:
+1) Создаем переменную для приватного ключа в variables.tf:
+	variable private_key_path {
+  description = "Private key path"
+  }
+  Указываем данные для приватного ключа в terraform.tfvars
+  private_key_path = "/path/to/private_key"
+  И указываем переменную в main.tf
+  private_key = "${file(var.private_key_path)}"
+2) Создаем переменную для зоны со значением по умолчанию в variables.tf
+  variable zone {
+  description = "Zone"
+  default     = "europe-west1-b"
+  }
+  и тоже указываем ее в main.tf
+3) Запуск terraform fmt
+4) Создание файла terraform.tfvars.example
+
+5) C помощью ресурса метадата создаем 2 ключа для проекта
+	resource "google_compute_project_metadata_item" "default" {
+  		key   = "ssh-keys"
+  		value = "appuser:${file(var.public_key_path)}appuser1:${file(var.public_key_path)}"
+	}
+Так же был добавлен ключ в appuser_web, но он был удален после команды terraform apply
+
+6) Для создания lb был создан файл lb.tf где были описаны инструкции по созданию с использованием различных ресурсов.
+ Созадн второй экземпляр vm reddit-app и отключен puma.service на первом, балансировщик отработал успешно.
+ Настроены выводы 3 ip адресов в output.tf
+ Удаляем записи о второй машине и настраивам счетчик с дефолтным значением  1 с помощью count
+ После этого приходится изменять файл конфигурации lb.tf outputs.tf и main.tf для корректной работы и вывода.
+
+
+
 Тема: Работа с packer
 
 Выполнение работы:
