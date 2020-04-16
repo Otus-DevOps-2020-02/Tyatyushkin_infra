@@ -14,9 +14,11 @@ resource "google_compute_instance" "app" {
     }
   }
 
- # metadata {
- #   ssh-keys = "appuser:${file(var.public_key_path)}"
- # }
+  metadata = {
+    # путь до публичного ключа
+    ssh-keys = "masterplan:${file(var.public_key_path)}"
+  }
+
 }
 
 
