@@ -7,7 +7,7 @@ provider "google" {
 module "storage-bucket" {
   source  = "SweetOps/storage-bucket/google"
   version = "0.3.1"
-  name = "tyatyushkinmvtest"
+  name = "tyatyushkin-tf"
   location = var.region
 }
 
