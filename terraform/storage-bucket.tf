@@ -5,9 +5,9 @@ provider "google" {
 }
 
 module "storage-bucket" {
-  source  = "SweetOps/storage-bucket/google"
-  version = "0.3.1"
-  name = "tyatyushkin-tf"
+  source   = "SweetOps/storage-bucket/google"
+  version  = "0.3.1"
+  name     = "tyatyushkin-tf"
   location = var.region
 }
 

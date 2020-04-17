@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "tyatyushkin-tf"
-    prefix  = "prod"
+    bucket = "tyatyushkin-tf"
+    prefix = "prod"
   }
 }
