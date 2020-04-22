@@ -1,5 +1,27 @@
 # Tyatyushkin_infra
 Tyatyushkin Infra repository
+
+Teма: Знакомство с ansible
+
+Выполненные работы:
+1) Устанавливаем Ansible с помощью команды 'brew install ansible'
+2) Формируем inventory файл
+3) Учимся использовать модули, например ping
+4) создаем конфиг ansible.cfg
+5) Учимся работать с группами и инвентори в формате yml
+6) Написание и выполнение простого playbook
+
+Задание со *
+1) Использование динамиеческого инвентори с помощью gcp_compute модуля
+  a) созадние файла inv.gcp.yml
+  б) правим ansible.cfg
+  inventory = ./inv.gcp.yml
+  [inventory]
+   enable_plugins = gcp_compute
+  в) формируем inventory.json 'ansible-inventory --list -i inv.gcp.yml > inventory.json'
+  г) проверяем работу ansible all -m ping
+
+
 Тема: Принципы организации инфраструктурного кода и работа над инфраструктурой в команде на примере Terraform
 
 Выполненные работы:
