@@ -6,4 +6,3 @@ variables.json
 .terraform/
 infra.json
 *.retry
-var.yml
