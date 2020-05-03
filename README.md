@@ -1,6 +1,52 @@
 # Tyatyushkin_infra
 Tyatyushkin Infra repository
 
+---
+
+## Ansible-2
+
+#### Выполненные работы:
+
+1. Пишем плейбук reddit_app.yml
+2. Создаем плейбук с несколькими сценариями reddit_app2.yml
+3. Разбиваем плейбук по ролям на **db.yml**, **app.yml** и **deploy.yml**
+4. Создаем **site.yml** для запуска сценариев
+5. Создаем сценарии для packer - **packer_app** и **packer_db**
+
+##### Задание со звездочкой:
+1. Правим **ansible.cfg** для использования динамического инвентори
+```
+[defaults]
+inventory = ./inv.gcp.yml
+...
+[inventory]
+enable_plugins = gcp_compute
+```
+2. Изменяем hosts во всех плейбуках, теперь не нужно в ручную менять адреса в инвентори так как мы используем динамический
+```
+hosts: reddit_db
+...
+hosts: reddit_app
+```
+3. Чтобы избавиться от ручного изменения в перенной указывающей адресс сервера дб, добавляем код в **db.yml**
+```
+    - name: add ip
+      shell: "echo 'db: {{ansible_host}}' > /home/masterplan/var"
+
+    - name: Specifying a path directly
+      fetch:
+        src: /home/masterplan/var
+        dest: var
+        flat: yes
+```
+4. Меняем **app.yml** для работы с новой переменной
+```
+  vars_files:
+    - var
+```
+5. Запускаем *ansible-playbook site.yml*
+---
+
 Teма: Знакомство с ansible
 
 Выполненные работы:
