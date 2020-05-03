@@ -1,10 +1,19 @@
 ---
 - name: Configure MongoDB
-  hosts: db
+  hosts: reddit-db
   become: true
   vars:
     mongo_bind_ip: 0.0.0.0
   tasks:
+    - name: add ip
+      shell: "echo 'db: {{ansible_host}}' > /home/masterplan/var.yml"
+
+    - name: Specifying a path directly
+      fetch:
+        src: /home/masterplan/var.yml
+        dest: var.yml
+        flat: yes
+
     - name: Change mongo config file
       template:
         src: templates/mongod.conf.j2

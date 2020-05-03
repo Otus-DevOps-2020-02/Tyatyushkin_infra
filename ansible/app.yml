@@ -1,9 +1,9 @@
 ---
 - name: Configure App
-  hosts: app
+  hosts: reddit-app
   become: true
-  vars:
-   db_host: 35.240.38.16
+  vars_files:
+    - var.yml
   tasks:
     - name: Add unit file for Puma
       copy:
