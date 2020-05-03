@@ -5,3 +5,4 @@ variables.json
 *.tfvars
 .terraform/
 infra.json
+*.retry
