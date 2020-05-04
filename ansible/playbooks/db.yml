@@ -1,6 +1,6 @@
 ---
 - name: Configure MongoDB
-  hosts: db
+  hosts: reddit-db
   become: true
 
   roles:
