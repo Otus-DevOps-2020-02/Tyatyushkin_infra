@@ -4,7 +4,7 @@ language: bash
 before_install:
 - curl https://raw.githubusercontent.com/express42/otus-homeworks/2020-02/run.sh | bash
 - sudo apt install software-properties-common
-- sudo apt-add-repository ppa:ansible/ansible --yes --update
+- sudo apt-add-repository ppa:ansible/ansible --yes
 - sudo apt install ansible
 - packer --version
 - packer validate -var-file=packer/variables.json.example packer/app.json
