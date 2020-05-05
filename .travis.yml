@@ -15,7 +15,6 @@ before_install:
 - ansible-lint --version
 - packer validate -var-file=packer/variables.json.example packer/app.json
 - cd ansible && ansible-lint playbooks/deploy.yml
-- cd ../terraform/stage/ && terraform validate
 notifications:
   slack:
     rooms:
