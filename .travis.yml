@@ -6,6 +6,7 @@ before_install:
 - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 - sudo python get-pip.py
 - sudo pip install ansible
+- sudo pip install ansible-lint
 - packer --version
 - packer validate -var-file=packer/variables.json.example packer/app.json
 notifications:
