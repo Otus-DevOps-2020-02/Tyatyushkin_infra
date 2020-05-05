@@ -14,6 +14,7 @@ before_install:
 - packer --version
 - ansible-lint --version
 - packer validate -var-file=packer/variables.json.example packer/app.json
+- ansible-lint ansible/playbooks/deploy.yml
 notifications:
   slack:
     rooms:
