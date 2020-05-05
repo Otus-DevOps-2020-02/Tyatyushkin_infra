@@ -3,6 +3,9 @@
   hosts: reddit-app
   become: true
 
+  vars_files:
+    - var
+
   roles:
     - app
     - jdauphant.nginx

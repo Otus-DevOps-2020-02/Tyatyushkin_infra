@@ -4,6 +4,15 @@
   debug:
     msg: "This host is in {{ env }} environment!!!"
 
+- name: add ip
+  shell: "echo 'db_host: {{ansible_host}}' > /home/masterplan/var"
+
+- name: Specifying a path directly
+  fetch:
+    src: /home/masterplan/var
+    dest: var
+    flat: yes
+
 - name: Change mongo config file
   template:
     src: mongod.conf.j2

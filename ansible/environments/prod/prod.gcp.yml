@@ -5,7 +5,7 @@ zones: # populate inventory with instances in these regions
 projects:
   - infra-244205
 filters:
-  - labels.env = stage
+  - labels.env = prod
 service_account_file: infra.json
 auth_kind: serviceaccount
 scopes:

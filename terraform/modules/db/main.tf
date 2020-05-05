@@ -14,6 +14,10 @@ resource "google_compute_instance" "db" {
     access_config {}
   }
 
+  labels = {
+    env = var.labels
+  }
+
   metadata = {
     # путь до публичного ключа
     ssh-keys = "masterplan:${file(var.public_key_path)}"
