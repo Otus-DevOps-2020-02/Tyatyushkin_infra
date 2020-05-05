@@ -1,3 +1,4 @@
+---
 plugin: gcp_compute
 zones: # populate inventory with instances in these regions
   - europe-west1-b
