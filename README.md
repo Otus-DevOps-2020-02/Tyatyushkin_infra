@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Otus-DevOps-2020-02/Tyatyushkin_infra.svg?branch=ansible-3)](https://travis-ci.com/Otus-DevOps-2020-02/Tyatyushkin_infra)
 # Tyatyushkin_infra
 Tyatyushkin Infra repository
 
