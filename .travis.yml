@@ -10,6 +10,9 @@ before_install:
 - sudo apt-get install unzip
 - wget https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_linux_amd64.zip
 - sudo unzip terraform_0.12.18_linux_amd64.zip -d /usr/local/bin
+- curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
+- sudo mv tflint /usr/local/bin
+- tflint -v
 - terraform --version
 - packer --version
 - ansible-lint --version
