@@ -30,6 +30,9 @@ before_install:
 - ansible-lint playbooks/db.yml
 - ansible-lint playbooks/packer_app.yml
 - ansible-lint playbooks/packer_db.yml
+- ansible-lint playbooks/reddit_app_one_play.yml
+- ansible-lint playbooks/reddit_app_multiple_plays.yml
+- ansible-lint playbooks/users.yml
 notifications:
   slack:
     rooms:
