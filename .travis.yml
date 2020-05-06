@@ -34,8 +34,8 @@ before_install:
 - ansible-lint playbooks/reddit_app_multiple_plays.yml
 - ansible-lint playbooks/users.yml
 - ansible-galaxy install -r environments/stage/requirements.yml
-- ansible-lint playbooks/app.yml
-
+- ansible-lint playbooks/app.yml --exclude=roles/jdauphant.nginx
+- ansible-lint playbooks/site.yml --exclude=roles/jdauphant.nginx
 notifications:
   slack:
     rooms:
