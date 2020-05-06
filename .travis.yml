@@ -21,7 +21,8 @@ before_install:
 - cd packer
 - packer validate -var-file=variables.json.example ubuntu16.json
 - packer validate -var-file=variables.json.example immutable.json
-- cd ansible && ansible-lint playbooks/deploy.yml
+- cd ../terraform/stage && terraform init && terraform validate
+- cd ../../ansible && ansible-lint playbooks/deploy.yml
 notifications:
   slack:
     rooms:
