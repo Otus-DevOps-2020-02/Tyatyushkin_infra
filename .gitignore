@@ -8,7 +8,8 @@ infra.json
 *.retry
 jdauphant.nginx
 vault.key
-# Vagrant & molecule.vagrant
+# Vagrant & molecule
+.vagrant
 *.log
 *.pyc
 .molecule
