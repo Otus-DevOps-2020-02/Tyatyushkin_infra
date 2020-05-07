@@ -1,5 +1,119 @@
+[![Build Status](https://travis-ci.com/Otus-DevOps-2020-02/Tyatyushkin_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-02/Tyatyushkin_infra)
 # Tyatyushkin_infra
 Tyatyushkin Infra repository
+
+---
+## Ansible-3
+
+#### Выполненные работы:
+
+1. Создаем ветку *ansible-3*
+2. Создаем шаблоны ролей *app* и *db* с помощью *ansible-galaxy init*
+3. Переносим плейбуки в созаднные роли
+4. Создаем окружения *stage* и *prod*
+5. Конфигирируем переменные в group_vars
+6. Организуем файлы в папке ansible
+7. Добавляем community роль *jdauphant.nginx* с помощью ansible-galaxy
+8. Настраиваем Ansible для работы с vault
+
+
+#### Задание со ⭐
+1. Для того чтобы разделять окружения правим конфиги terraform добавляем labels
+```
+  labels = {
+    env = var.labels
+  }
+```
+и добавляем в эту метку в наших переменных
+```
+labels = "stage"
+```
+теперь у нас при создании через терраформ к каждому окружению привязана метка
+
+2. Настраиваем динамическое инвентори для наших сред и правим ansible.cfg
+```
+[defaults]
+inventory = ./environments/stage/stage.gcp.yml
+```
+и вносим изменения для наших inventory добавляя фильтр для **label**
+```
+filters:
+  - labels.env = stage
+```
+
+3. Так же добавим в environments *host_vars* куда перенесем переменные, чтобы они использовались в плейбуках
+```
+reddit-app
+reddit-dp
+```
+4. Проверяем работу
+```
+ansible -m ping all
+reddit-db | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+reddit-app | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+```
+теперь проверяем prod окружение
+```
+ansible -i environments/prod/prod.gcp.yml all -m ping
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+```
+
+#### Задание со ⭐⭐
+1. Правим .travis.yml добавляя строки после проверок ОТУС
+```
+#Устанавливаем ansible и ansible-lint
+- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+- sudo python get-pip.py
+- sudo pip install ansible
+- sudo pip install ansible-lint
+#Устанавливаем Terraform и tflint
+- sudo apt-get install unzip
+- wget https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_linux_amd64.zip
+- sudo unzip terraform_0.12.18_linux_amd64.zip -d /usr/local/bin
+- curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
+- sudo mv tflint /usr/local/bin
+#Проверяем версии
+- tflint -v
+- terraform --version
+- packer --version
+- ansible-lint --version
+#Проверяем шаблоны packer
+- packer validate -var-file=packer/variables.json.example packer/app.json
+- packer validate -var-file=packer/variables.json.example packer/db.json
+- cd packer
+- packer validate -var-file=variables.json.example ubuntu16.json
+- packer validate -var-file=variables.json.example immutable.json
+#Проверяем конфиги terraform
+- cd ../terraform/stage && mv backend.tf backend.tf.example && terraform init && terraform validate
+- tflint
+- cd ../prod && mv backend.tf backend.tf.example && terraform init && terraform validate
+- tflint
+#Проверяем плейбуки ansible
+- cd ../../ansible && ansible-lint playbooks/deploy.yml
+- ansible-lint playbooks/clone.yml
+- ansible-lint playbooks/db.yml
+- ansible-lint playbooks/packer_app.yml
+- ansible-lint playbooks/packer_db.yml
+- ansible-lint playbooks/reddit_app_one_play.yml
+- ansible-lint playbooks/reddit_app_multiple_plays.yml
+- ansible-lint playbooks/users.yml
+- ansible-galaxy install -r environments/stage/requirements.yml
+- ansible-lint playbooks/app.yml --exclude=roles/jdauphant.nginx
+- ansible-lint playbooks/site.yml --exclude=roles/jdauphant.nginx
+```
+2. Добавлен build status от трависа в начало README.md
 
 ---
 

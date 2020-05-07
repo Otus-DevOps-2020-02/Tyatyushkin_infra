@@ -18,3 +18,7 @@ variable private_key_path {
 variable db_ip {
   description = " database IP"
 }
+
+variable labels {
+  description = "env labels"
+}

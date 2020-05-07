@@ -14,3 +14,7 @@ variable db_disk_image {
 variable private_key_path {
   description = "Private key path"
 }
+
+variable labels {
+  description = "evironment labels"
+}
