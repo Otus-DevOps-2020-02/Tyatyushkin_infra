@@ -2,11 +2,6 @@
 - name: install
   hosts: all
   become: yes
-  tasks:
-  - name: install ruby
-    apt:
-      name:
-        - ruby-full
-        - ruby-bundler
-        - build-essential
-      update_cache: yes
+
+  roles:
+    - app
